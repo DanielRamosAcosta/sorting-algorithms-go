@@ -7,7 +7,7 @@ import (
 )
 
 func TestInsertionSort(t *testing.T) {
-	s := NewRandom(DEFAULT_SIZE, DEFAULT_SEED)
+	s := NewRandom(DEFAULT_SMALL_SIZE, DEFAULT_SEED)
 	aedasort.InsertionSort(s)
 	failIfNotSorted(s, t)
 }

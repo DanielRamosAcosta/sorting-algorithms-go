@@ -8,6 +8,7 @@ import (
 type SortType []uint
 
 const DEFAULT_SIZE = 10000
+const DEFAULT_SMALL_SIZE = 15
 const DEFAULT_SEED = 7
 const DEFAULT_SPARSE = 10
 const DEFAULT_GROUP = 50

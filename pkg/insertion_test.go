@@ -7,7 +7,7 @@ import (
 )
 
 func TestInsertionSort(t *testing.T) {
-	s := SortType{10, 9, 8, 7, 6, 5, 4, 3, 2, 1}
+	s := NewRandom(10, 7)
 	aedasort.InsertionSort(s)
 	failIfNotSorted(s, t)
 }

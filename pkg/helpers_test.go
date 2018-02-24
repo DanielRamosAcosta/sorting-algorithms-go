@@ -7,6 +7,11 @@ import (
 
 type SortType []uint
 
+const DEFAULT_SIZE = 10000
+const DEFAULT_SEED = 7
+const DEFAULT_SPARSE = 10
+const DEFAULT_GROUP = 50
+
 func (a SortType) Len() int            { return len(a) }
 func (a SortType) Swap(i, j int)       { a[i], a[j] = a[j], a[i] }
 func (a SortType) Less(i, j int) bool  { return a[i] < a[j] }

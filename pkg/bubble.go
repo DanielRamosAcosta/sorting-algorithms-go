@@ -5,6 +5,7 @@ import (
 )
 
 // BubbleSort sorts the given sortable item using Bubble Sort algorithm
+// https://en.wikipedia.org/wiki/Bubble_sort
 func BubbleSort(s sort.Interface) {
 	change := true
 	for i := 1; i < s.Len() && change; i++ {

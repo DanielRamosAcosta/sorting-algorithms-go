@@ -5,6 +5,8 @@ import (
 	"math/rand"
 	"sort"
 	"testing"
+
+	"github.com/danielramosacosta/sorting-algorithms-go/pkg"
 )
 
 type SortType []uint
@@ -15,10 +17,11 @@ const DEFAULT_SEED = 7
 const DEFAULT_SPARSE = 10
 const DEFAULT_GROUP = 50
 
-func (a SortType) Len() int            { return len(a) }
-func (a SortType) Swap(i, j int)       { a[i], a[j] = a[j], a[i] }
-func (a SortType) Less(i, j int) bool  { return a[i] < a[j] }
-func (a SortType) GetDebug(i int) uint { return a[i] }
+func (a SortType) Len() int              { return len(a) }
+func (a SortType) Swap(i, j int)         { a[i], a[j] = a[j], a[i] }
+func (a SortType) Less(i, j int) bool    { return a[i] < a[j] }
+func (a SortType) Greater(i, j int) bool { return a[i] > a[j] }
+func (a SortType) GetKey(i int) uint     { return a[i] }
 
 func New(length uint) SortType {
 	s := make(SortType, length)
@@ -116,7 +119,31 @@ func BenchAlgorithm(b *testing.B, f func(sort.Interface)) {
 		"fewunique",
 	}
 
-	slicesLengths := []uint{10, 50, 100, 200, 300, 600, 1000}
+	slicesLengths := []uint{10, 50, 100, 200, 300, 600, 1000, 2000, 5000}
+
+	for _, t := range benchTypes {
+		b.Run(t, func(b *testing.B) {
+			for _, n := range slicesLengths {
+				b.Run(fmt.Sprintf("%v", n), func(b *testing.B) {
+					for i := 0; i < b.N; i++ {
+						slice := NewOfType(t, n, int64(int(n)*b.N))
+						f(slice)
+					}
+				})
+			}
+		})
+	}
+}
+
+func BenchAlgorithmCustomInterface(b *testing.B, f func(aedasort.Interface)) {
+	benchTypes := []string{
+		"random",
+		"nearlysorted",
+		"reversed",
+		"fewunique",
+	}
+
+	slicesLengths := []uint{10, 50, 100, 200, 300, 600, 1000, 2000, 5000}
 
 	for _, t := range benchTypes {
 		b.Run(t, func(b *testing.B) {

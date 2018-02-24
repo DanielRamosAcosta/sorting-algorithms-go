@@ -5,8 +5,6 @@ import (
 	"math/rand"
 	"sort"
 	"testing"
-
-	"github.com/danielramosacosta/sorting-algorithms-go/pkg"
 )
 
 type SortType []uint
@@ -112,30 +110,6 @@ func failIfNotSorted(a SortType, t *testing.T) {
 }
 
 func BenchAlgorithm(b *testing.B, f func(sort.Interface)) {
-	benchTypes := []string{
-		"random",
-		"nearlysorted",
-		"reversed",
-		"fewunique",
-	}
-
-	slicesLengths := []uint{10, 50, 100, 200, 300, 600, 1000, 2000, 5000}
-
-	for _, t := range benchTypes {
-		b.Run(t, func(b *testing.B) {
-			for _, n := range slicesLengths {
-				b.Run(fmt.Sprintf("%v", n), func(b *testing.B) {
-					for i := 0; i < b.N; i++ {
-						slice := NewOfType(t, n, int64(int(n)*b.N))
-						f(slice)
-					}
-				})
-			}
-		})
-	}
-}
-
-func BenchAlgorithmCustomInterface(b *testing.B, f func(aedasort.Interface)) {
 	benchTypes := []string{
 		"random",
 		"nearlysorted",

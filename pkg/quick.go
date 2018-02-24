@@ -1,24 +1,32 @@
 package aedasort
 
+import "sort"
+
 // QuickSort sorts the given sortable item using QuickSort Sort algorithm
 // https://en.wikipedia.org/wiki/Quicksort
-func QuickSort(s Interface) {
+func QuickSort(s sort.Interface) {
 	quickSort(s, 0, s.Len()-1)
 }
 
-func quickSort(s Interface, beg int, end int) {
+func quickSort(s sort.Interface, beg int, end int) {
 	b := beg
 	e := end
-	p := s.GetKey((b + e) / 2)
+	pi := (b + e) / 2
 
 	for b < e {
-		for s.GetKey(b) < p {
+		for s.Less(b, pi) {
 			b++
 		}
-		for s.GetKey(e) > p {
+		for s.Less(pi, e) {
 			e--
 		}
 		if b <= e {
+			// Si cambiamos donde estaba el pivote, hay que actualizar su posición
+			if b == pi {
+				pi = e
+			} else if e == pi {
+				pi = b
+			}
 			s.Swap(b, e)
 			b++
 			e--

@@ -13,5 +13,5 @@ func TestQuickSort(t *testing.T) {
 }
 
 func BenchmarkQuickSort(b *testing.B) {
-	BenchAlgorithmCustomInterface(b, aedasort.QuickSort)
+	BenchAlgorithm(b, aedasort.QuickSort)
 }

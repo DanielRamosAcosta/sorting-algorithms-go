@@ -1,6 +1,7 @@
 package aedasort_test
 
 import (
+	"sort"
 	"testing"
 
 	"github.com/danielramosacosta/sorting-algorithms-go/pkg"
@@ -12,30 +13,10 @@ func TestBubbleSort(t *testing.T) {
 	failIfNotSorted(s, t)
 }
 
-func BenchmarkBubbleSortRandom(b *testing.B) {
-	for n := 0; n < b.N; n++ {
-		s := NewRandom(DEFAULT_SIZE, int64(n+DEFAULT_SEED))
-		aedasort.BubbleSort(s)
-	}
+func BenchmarkBubbleSort(b *testing.B) {
+	BenchAlgorithm(b, aedasort.BubbleSort)
 }
 
-func BenchmarkBubbleSortNearlySorted(b *testing.B) {
-	for n := 0; n < b.N; n++ {
-		s := NewNearlySorted(DEFAULT_SIZE, int64(n+DEFAULT_SEED), DEFAULT_SPARSE)
-		aedasort.BubbleSort(s)
-	}
-}
-
-func BenchmarkBubbleSortReversed(b *testing.B) {
-	for n := 0; n < b.N; n++ {
-		s := NewReversed(DEFAULT_SIZE)
-		aedasort.BubbleSort(s)
-	}
-}
-
-func BenchmarkBubbleSortFewUnique(b *testing.B) {
-	for n := 0; n < b.N; n++ {
-		s := NewFewUnique(DEFAULT_SIZE, int64(n+DEFAULT_SEED), DEFAULT_GROUP)
-		aedasort.BubbleSort(s)
-	}
+func BenchmarkNativeSort(b *testing.B) {
+	BenchAlgorithm(b, sort.Sort)
 }

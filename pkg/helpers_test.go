@@ -1,7 +1,9 @@
 package aedasort_test
 
 import (
+	"fmt"
 	"math/rand"
+	"sort"
 	"testing"
 )
 
@@ -84,10 +86,48 @@ func NewFewUnique(length uint, seed int64, groups uint) SortType {
 	return st
 }
 
+func NewOfType(t string, length uint, seed int64) SortType {
+	switch t {
+	case "random":
+		return NewRandom(length, seed)
+	case "nearlysorted":
+		return NewNearlySorted(length, seed, length/10)
+	case "reversed":
+		return NewReversed(length)
+	case "fewunique":
+		return NewFewUnique(length, seed, (length/10)+1)
+	}
+	panic(fmt.Sprintf("Unknown type %v", t))
+}
+
 func failIfNotSorted(a SortType, t *testing.T) {
 	for i := 1; i < len(a); i++ {
 		if a[i-1] > a[i] {
 			t.Error("Is not sorted", a)
 		}
+	}
+}
+
+func BenchAlgorithm(b *testing.B, f func(sort.Interface)) {
+	benchTypes := []string{
+		"random",
+		"nearlysorted",
+		"reversed",
+		"fewunique",
+	}
+
+	slicesLengths := []uint{10, 50, 100, 200, 300, 600, 1000}
+
+	for _, t := range benchTypes {
+		b.Run(t, func(b *testing.B) {
+			for _, n := range slicesLengths {
+				b.Run(fmt.Sprintf("%v", n), func(b *testing.B) {
+					for i := 0; i < b.N; i++ {
+						slice := NewOfType(t, n, int64(int(n)*b.N))
+						f(slice)
+					}
+				})
+			}
+		})
 	}
 }

@@ -3,7 +3,7 @@
 # reset
 
 set terminal pngcairo nocrop enhanced font "verdana,8" size 600,600
-set output sprintf("graficos/%s.png", algrtm)
+set output sprintf("graphs/%s.png", algrtm)
 set datafile separator ','
 set style line 1 linecolor rgb '#5B9BD5' linetype 1 linewidth 2
 set style line 2 linecolor rgb '#ED7D31' linetype 1 linewidth 2

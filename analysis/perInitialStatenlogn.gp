@@ -3,7 +3,7 @@
 # reset
 
 set terminal pngcairo nocrop enhanced font "verdana,8" size 600,600
-set output sprintf("graficos/%s-ologn.png", initialstate)
+set output sprintf("graphs/%s-ologn.png", initialstate)
 set datafile separator ','
 set style line 1 linecolor rgb '#5B9BD5' linetype 1 linewidth 2
 set style line 2 linecolor rgb '#ED7D31' linetype 1 linewidth 2
@@ -14,7 +14,7 @@ set style line 6 linecolor rgb '#70AD47' linetype 1 linewidth 2
 set style line 7 linecolor rgb '#255E91' linetype 1 linewidth 2
 set style line 8 linecolor rgb '#9E480E' linetype 1 linewidth 2
 
-set title sprintf("%s (only nlog(n))", initialstate)
+set title sprintf("%s (only nlog(n) algorithms)", initialstate)
 
 set key autotitle columnheader left
 

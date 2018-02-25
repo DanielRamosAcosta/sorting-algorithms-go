@@ -93,7 +93,7 @@ func NewOfType(t string, length uint, seed int64) SortType {
 	case "random":
 		return NewRandom(length, seed)
 	case "nearlysorted":
-		return NewNearlySorted(length, seed, length/10)
+		return NewNearlySorted(length, seed, length/8)
 	case "reversed":
 		return NewReversed(length)
 	case "fewunique":
@@ -118,15 +118,19 @@ func BenchAlgorithm(b *testing.B, f func(sort.Interface)) {
 		"fewunique",
 	}
 
-	slicesLengths := []uint{10, 50, 100, 200, 300, 600, 1000, 2000, 5000}
+	slicesLengths := []uint{10, 25, 50, 100, 200, 300, 600, 1000, 2000, 5000}
 
 	for _, t := range benchTypes {
 		b.Run(t, func(b *testing.B) {
 			for _, n := range slicesLengths {
 				b.Run(fmt.Sprintf("%v", n), func(b *testing.B) {
+					// b.StopTimer()
 					for i := 0; i < b.N; i++ {
 						slice := NewOfType(t, n, int64(int(n)*b.N))
+						// b.StartTimer()
+						fmt.Println(slice)
 						f(slice)
+						// b.StopTimer()
 					}
 				})
 			}

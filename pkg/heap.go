@@ -7,29 +7,30 @@ import (
 // HeapSort sorts the given sortable item using Heap Sort algorithm
 // https://en.wikipedia.org/wiki/Heapsort
 func HeapSort(s sort.Interface) {
-	for i := s.Len()/2 - 1; i >= 0; i-- {
-		shiftDown(s, i, s.Len())
+	for i := (s.Len() - 1) / 2; i >= 0; i-- {
+		siftDown(s, i, s.Len())
 	}
 
-	for i := s.Len() - 1; i > 0; i-- {
+	for i := s.Len() - 1; i >= 0; i-- {
 		s.Swap(0, i)
-		shiftDown(s, 0, i-1)
+		siftDown(s, 0, i)
 	}
 }
 
-func shiftDown(s sort.Interface, i int, n int) {
-	for i*2 < n {
-		c1 := i*2 + 1
-		c2 := i*2 + 2
-		max := c1
-
-		if (c2 < n) && (s.Less(c1, c2)) {
-			max = c2
+func siftDown(s sort.Interface, i, n int) {
+	root := i
+	for {
+		child := 2*root + 1
+		if child >= n {
+			break
 		}
-		if s.Less(max, i) {
+		if (child+1 < n) && s.Less(child, child+1) {
+			child++
+		}
+		if !s.Less(root, child) {
 			return
 		}
-		s.Swap(i, max)
-		i = max
+		s.Swap(root, child)
+		root = child
 	}
 }

@@ -3,6 +3,19 @@
 This repo holds various sorting algorithms in order to test Golang benchmarking
 utilities.
 
+* [All Algorithms with random initial state](https://github.com/DanielRamosAcosta/sorting-algorithms-go#all-algorithms-with-random-initial-state)
+* [Only O(n log<sub>2</sub> n) with random initial state](https://github.com/DanielRamosAcosta/sorting-algorithms-go#only-on-log2-n-with-random-initial-state)
+* [O(n<sup>2</sup>)](https://github.com/DanielRamosAcosta/sorting-algorithms-go#on2)
+  * [Insertion Sort](https://github.com/DanielRamosAcosta/sorting-algorithms-go#insertion-sort)
+  * [Selection Sort](https://github.com/DanielRamosAcosta/sorting-algorithms-go#selection-sort)
+  * [Bubble Sort](https://github.com/DanielRamosAcosta/sorting-algorithms-go#bubble-sort)
+  * [Cocktail Sort](https://github.com/DanielRamosAcosta/sorting-algorithms-go#cocktail-sort)
+* [O(n log<sub>2</sub> n)](https://github.com/DanielRamosAcosta/sorting-algorithms-go#on-log2-n)
+  * [Heap Sort](https://github.com/DanielRamosAcosta/sorting-algorithms-go#heap-sort)
+  * [Shell Sort](https://github.com/DanielRamosAcosta/sorting-algorithms-go#shell-sort)
+  * [Quick Sort](https://github.com/DanielRamosAcosta/sorting-algorithms-go#quick-sort)
+  * [Golang Sort implementation](https://github.com/DanielRamosAcosta/sorting-algorithms-go#native-sort)
+
 ## All Algorithms with random initial state
 
 ![All algorithms](https://raw.githubusercontent.com/DanielRamosAcosta/sorting-algorithms-go/master/graphs/Random.png)

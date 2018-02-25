@@ -1,330 +1,392 @@
 # Go Sorting Algorithms
 
-Various sorting algorithms implementing the same `sort.Interface`. This is an
-experiment to try out Go benchamrks.
+This repo holds various sorting algorithms in order to test Golang benchmarking
+utilities.
 
+## All Algorithms with random initial state
 
-Benchmark output:
+![All algorithms](https://raw.githubusercontent.com/DanielRamosAcosta/sorting-algorithms-go/master/graphs/Random.png)
 
-```
-BenchmarkBubbleSort/random/10-12                 3000000               513 ns/op
-BenchmarkBubbleSort/random/25-12                 1000000              1756 ns/op
-BenchmarkBubbleSort/random/50-12                  200000              6794 ns/op
-BenchmarkBubbleSort/random/100-12                  50000             27557 ns/op
-BenchmarkBubbleSort/random/200-12                  10000            107659 ns/op
-BenchmarkBubbleSort/random/300-12                   5000            230428 ns/op
-BenchmarkBubbleSort/random/600-12                   2000            899676 ns/op
-BenchmarkBubbleSort/random/1000-12                   500           2508250 ns/op
-BenchmarkBubbleSort/random/2000-12                   100          10675388 ns/op
-BenchmarkBubbleSort/random/5000-12                    20          75255770 ns/op
-BenchmarkBubbleSort/nearlysorted/10-12           5000000               296 ns/op
-BenchmarkBubbleSort/nearlysorted/25-12           3000000               624 ns/op
-BenchmarkBubbleSort/nearlysorted/50-12           1000000              1646 ns/op
-BenchmarkBubbleSort/nearlysorted/100-12           200000              5970 ns/op
-BenchmarkBubbleSort/nearlysorted/200-12            50000             27500 ns/op
-BenchmarkBubbleSort/nearlysorted/300-12            20000             61543 ns/op
-BenchmarkBubbleSort/nearlysorted/600-12             5000            245009 ns/op
-BenchmarkBubbleSort/nearlysorted/1000-12            2000            675410 ns/op
-BenchmarkBubbleSort/nearlysorted/2000-12             500           2862602 ns/op
-BenchmarkBubbleSort/nearlysorted/5000-12             100          18976285 ns/op
-BenchmarkBubbleSort/reversed/10-12               2000000               760 ns/op
-BenchmarkBubbleSort/reversed/25-12                500000              2488 ns/op
-BenchmarkBubbleSort/reversed/50-12                200000              7750 ns/op
-BenchmarkBubbleSort/reversed/100-12                50000             30321 ns/op
-BenchmarkBubbleSort/reversed/200-12                10000            121985 ns/op
-BenchmarkBubbleSort/reversed/300-12                 5000            265382 ns/op
-BenchmarkBubbleSort/reversed/600-12                 2000           1034623 ns/op
-BenchmarkBubbleSort/reversed/1000-12                 500           2888977 ns/op
-BenchmarkBubbleSort/reversed/2000-12                 100          11551194 ns/op
-BenchmarkBubbleSort/reversed/5000-12                  20          71512265 ns/op
-BenchmarkBubbleSort/fewunique/10-12              3000000               510 ns/op
-BenchmarkBubbleSort/fewunique/25-12              1000000              1713 ns/op
-BenchmarkBubbleSort/fewunique/50-12               300000              6423 ns/op
-BenchmarkBubbleSort/fewunique/100-12               50000             25366 ns/op
-BenchmarkBubbleSort/fewunique/200-12               10000            100990 ns/op
-BenchmarkBubbleSort/fewunique/300-12               10000            225424 ns/op
-BenchmarkBubbleSort/fewunique/600-12                2000            870758 ns/op
-BenchmarkBubbleSort/fewunique/1000-12                500           2419251 ns/op
-BenchmarkBubbleSort/fewunique/2000-12                100          10315759 ns/op
-BenchmarkBubbleSort/fewunique/5000-12                 20          73258045 ns/op
-BenchmarkCocktailSort/random/10-12               3000000               500 ns/op
-BenchmarkCocktailSort/random/25-12               1000000              1714 ns/op
-BenchmarkCocktailSort/random/50-12                200000              6422 ns/op
-BenchmarkCocktailSort/random/100-12                50000             25561 ns/op
-BenchmarkCocktailSort/random/200-12                10000            103241 ns/op
-BenchmarkCocktailSort/random/300-12                 5000            228395 ns/op
-BenchmarkCocktailSort/random/600-12                 2000            914376 ns/op
-BenchmarkCocktailSort/random/1000-12                 500           2470481 ns/op
-BenchmarkCocktailSort/random/2000-12                 100          10160215 ns/op
-BenchmarkCocktailSort/random/5000-12                  20          67350390 ns/op
-BenchmarkCocktailSort/nearlysorted/10-12         3000000               460 ns/op
-BenchmarkCocktailSort/nearlysorted/25-12         1000000              1469 ns/op
-BenchmarkCocktailSort/nearlysorted/50-12          300000              4829 ns/op
-BenchmarkCocktailSort/nearlysorted/100-12         100000             18602 ns/op
-BenchmarkCocktailSort/nearlysorted/200-12          20000             72984 ns/op
-BenchmarkCocktailSort/nearlysorted/300-12          10000            164028 ns/op
-BenchmarkCocktailSort/nearlysorted/600-12           2000            666848 ns/op
-BenchmarkCocktailSort/nearlysorted/1000-12          1000           1857221 ns/op
-BenchmarkCocktailSort/nearlysorted/2000-12           200           7444163 ns/op
-BenchmarkCocktailSort/nearlysorted/5000-12            30          47202763 ns/op
-BenchmarkCocktailSort/reversed/10-12             2000000               700 ns/op
-BenchmarkCocktailSort/reversed/25-12              500000              2702 ns/op
-BenchmarkCocktailSort/reversed/50-12              200000              7601 ns/op
-BenchmarkCocktailSort/reversed/100-12              50000             30543 ns/op
-BenchmarkCocktailSort/reversed/200-12              10000            118209 ns/op
-BenchmarkCocktailSort/reversed/300-12               5000            267192 ns/op
-BenchmarkCocktailSort/reversed/600-12               2000           1062478 ns/op
-BenchmarkCocktailSort/reversed/1000-12               500           2927758 ns/op
-BenchmarkCocktailSort/reversed/2000-12               100          11730141 ns/op
-BenchmarkCocktailSort/reversed/5000-12                20          73001020 ns/op
-BenchmarkCocktailSort/fewunique/10-12            3000000               467 ns/op
-BenchmarkCocktailSort/fewunique/25-12            1000000              1632 ns/op
-BenchmarkCocktailSort/fewunique/50-12             300000              6254 ns/op
-BenchmarkCocktailSort/fewunique/100-12             50000             24646 ns/op
-BenchmarkCocktailSort/fewunique/200-12             20000             95415 ns/op
-BenchmarkCocktailSort/fewunique/300-12              5000            218978 ns/op
-BenchmarkCocktailSort/fewunique/600-12              2000            890942 ns/op
-BenchmarkCocktailSort/fewunique/1000-12              500           2431807 ns/op
-BenchmarkCocktailSort/fewunique/2000-12              200           9825487 ns/op
-BenchmarkCocktailSort/fewunique/5000-12               20          67251515 ns/op
-BenchmarkHeapSort/random/10-12                   3000000               588 ns/op
-BenchmarkHeapSort/random/25-12                   1000000              1210 ns/op
-BenchmarkHeapSort/random/50-12                    500000              2634 ns/op
-BenchmarkHeapSort/random/100-12                   200000              5697 ns/op
-BenchmarkHeapSort/random/200-12                   100000             14754 ns/op
-BenchmarkHeapSort/random/300-12                    50000             26106 ns/op
-BenchmarkHeapSort/random/600-12                    20000             65894 ns/op
-BenchmarkHeapSort/random/1000-12                   10000            123484 ns/op
-BenchmarkHeapSort/random/2000-12                    5000            264020 ns/op
-BenchmarkHeapSort/random/5000-12                    2000            741512 ns/op
-BenchmarkHeapSort/nearlysorted/10-12             3000000               577 ns/op
-BenchmarkHeapSort/nearlysorted/25-12             1000000              1254 ns/op
-BenchmarkHeapSort/nearlysorted/50-12              500000              2544 ns/op
-BenchmarkHeapSort/nearlysorted/100-12             300000              6370 ns/op
-BenchmarkHeapSort/nearlysorted/200-12             100000             15575 ns/op
-BenchmarkHeapSort/nearlysorted/300-12              50000             27502 ns/op
-BenchmarkHeapSort/nearlysorted/600-12              20000             67111 ns/op
-BenchmarkHeapSort/nearlysorted/1000-12             10000            117014 ns/op
-BenchmarkHeapSort/nearlysorted/2000-12              5000            262759 ns/op
-BenchmarkHeapSort/nearlysorted/5000-12              2000            736137 ns/op
-BenchmarkHeapSort/reversed/10-12                 3000000               595 ns/op
-BenchmarkHeapSort/reversed/25-12                 1000000              1123 ns/op
-BenchmarkHeapSort/reversed/50-12                 1000000              2295 ns/op
-BenchmarkHeapSort/reversed/100-12                 300000              5398 ns/op
-BenchmarkHeapSort/reversed/200-12                 100000             13480 ns/op
-BenchmarkHeapSort/reversed/300-12                  50000             22799 ns/op
-BenchmarkHeapSort/reversed/600-12                  30000             56780 ns/op
-BenchmarkHeapSort/reversed/1000-12                 10000            101624 ns/op
-BenchmarkHeapSort/reversed/2000-12                  5000            222375 ns/op
-BenchmarkHeapSort/reversed/5000-12                  2000            609433 ns/op
-BenchmarkHeapSort/fewunique/10-12                3000000               536 ns/op
-BenchmarkHeapSort/fewunique/25-12                1000000              1139 ns/op
-BenchmarkHeapSort/fewunique/50-12                 500000              2419 ns/op
-BenchmarkHeapSort/fewunique/100-12                200000              5578 ns/op
-BenchmarkHeapSort/fewunique/200-12                100000             14216 ns/op
-BenchmarkHeapSort/fewunique/300-12                 50000             25485 ns/op
-BenchmarkHeapSort/fewunique/600-12                 20000             60156 ns/op
-BenchmarkHeapSort/fewunique/1000-12                10000            109901 ns/op
-BenchmarkHeapSort/fewunique/2000-12                10000            228306 ns/op
-BenchmarkHeapSort/fewunique/5000-12                 2000            612497 ns/op
-BenchmarkInsertionSort/random/10-12              3000000               414 ns/op
-BenchmarkInsertionSort/random/25-12              1000000              1434 ns/op
-BenchmarkInsertionSort/random/50-12               500000              4226 ns/op
-BenchmarkInsertionSort/random/100-12              100000             15140 ns/op
-BenchmarkInsertionSort/random/200-12               30000             53617 ns/op
-BenchmarkInsertionSort/random/300-12               10000            121928 ns/op
-BenchmarkInsertionSort/random/600-12                3000            515623 ns/op
-BenchmarkInsertionSort/random/1000-12               1000           1344155 ns/op
-BenchmarkInsertionSort/random/2000-12                300           5490228 ns/op
-BenchmarkInsertionSort/random/5000-12                 50          32699878 ns/op
-BenchmarkInsertionSort/nearlysorted/10-12        5000000               315 ns/op
-BenchmarkInsertionSort/nearlysorted/25-12        3000000               601 ns/op
-BenchmarkInsertionSort/nearlysorted/50-12        1000000              1368 ns/op
-BenchmarkInsertionSort/nearlysorted/100-12        300000              4017 ns/op
-BenchmarkInsertionSort/nearlysorted/200-12        100000             15369 ns/op
-BenchmarkInsertionSort/nearlysorted/300-12         50000             32761 ns/op
-BenchmarkInsertionSort/nearlysorted/600-12         10000            120018 ns/op
-BenchmarkInsertionSort/nearlysorted/1000-12         5000            337086 ns/op
-BenchmarkInsertionSort/nearlysorted/2000-12         1000           1291112 ns/op
-BenchmarkInsertionSort/nearlysorted/5000-12          200           7928650 ns/op
-BenchmarkInsertionSort/reversed/10-12            2000000               695 ns/op
-BenchmarkInsertionSort/reversed/25-12             500000              2409 ns/op
-BenchmarkInsertionSort/reversed/50-12             200000              7426 ns/op
-BenchmarkInsertionSort/reversed/100-12             50000             28293 ns/op
-BenchmarkInsertionSort/reversed/200-12             10000            112533 ns/op
-BenchmarkInsertionSort/reversed/300-12              5000            241489 ns/op
-BenchmarkInsertionSort/reversed/600-12              2000            966989 ns/op
-BenchmarkInsertionSort/reversed/1000-12              500           2641561 ns/op
-BenchmarkInsertionSort/reversed/2000-12              100          10626482 ns/op
-BenchmarkInsertionSort/reversed/5000-12               20          65772705 ns/op
-BenchmarkInsertionSort/fewunique/10-12           3000000               374 ns/op
-BenchmarkInsertionSort/fewunique/25-12           1000000              1339 ns/op
-BenchmarkInsertionSort/fewunique/50-12            500000              4176 ns/op
-BenchmarkInsertionSort/fewunique/100-12           100000             14872 ns/op
-BenchmarkInsertionSort/fewunique/200-12            30000             50081 ns/op
-BenchmarkInsertionSort/fewunique/300-12            10000            113551 ns/op
-BenchmarkInsertionSort/fewunique/600-12             3000            479824 ns/op
-BenchmarkInsertionSort/fewunique/1000-12            1000           1235834 ns/op
-BenchmarkInsertionSort/fewunique/2000-12             300           5088549 ns/op
-BenchmarkInsertionSort/fewunique/5000-12              50          29883352 ns/op
-BenchmarkNativeSort/random/10-12                 3000000               435 ns/op
-BenchmarkNativeSort/random/25-12                 2000000               864 ns/op
-BenchmarkNativeSort/random/50-12                 1000000              1641 ns/op
-BenchmarkNativeSort/random/100-12                 500000              3459 ns/op
-BenchmarkNativeSort/random/200-12                 200000              7354 ns/op
-BenchmarkNativeSort/random/300-12                 100000             12109 ns/op
-BenchmarkNativeSort/random/600-12                  50000             35675 ns/op
-BenchmarkNativeSort/random/1000-12                 20000             76166 ns/op
-BenchmarkNativeSort/random/2000-12                 10000            174661 ns/op
-BenchmarkNativeSort/random/5000-12                  3000            481968 ns/op
-BenchmarkNativeSort/nearlysorted/10-12           5000000               323 ns/op
-BenchmarkNativeSort/nearlysorted/25-12           2000000               744 ns/op
-BenchmarkNativeSort/nearlysorted/50-12           1000000              1588 ns/op
-BenchmarkNativeSort/nearlysorted/100-12           500000              3217 ns/op
-BenchmarkNativeSort/nearlysorted/200-12           200000              6726 ns/op
-BenchmarkNativeSort/nearlysorted/300-12           100000             11631 ns/op
-BenchmarkNativeSort/nearlysorted/600-12            50000             31936 ns/op
-BenchmarkNativeSort/nearlysorted/1000-12           20000             66798 ns/op
-BenchmarkNativeSort/nearlysorted/2000-12           10000            159067 ns/op
-BenchmarkNativeSort/nearlysorted/5000-12            3000            449212 ns/op
-BenchmarkNativeSort/reversed/10-12               3000000               551 ns/op
-BenchmarkNativeSort/reversed/25-12               2000000               700 ns/op
-BenchmarkNativeSort/reversed/50-12               1000000              1308 ns/op
-BenchmarkNativeSort/reversed/100-12              1000000              2631 ns/op
-BenchmarkNativeSort/reversed/200-12               300000              5202 ns/op
-BenchmarkNativeSort/reversed/300-12               200000              8643 ns/op
-BenchmarkNativeSort/reversed/600-12               100000             18388 ns/op
-BenchmarkNativeSort/reversed/1000-12               50000             32451 ns/op
-BenchmarkNativeSort/reversed/2000-12               20000             66683 ns/op
-BenchmarkNativeSort/reversed/5000-12               10000            191188 ns/op
-BenchmarkNativeSort/fewunique/10-12              3000000               422 ns/op
-BenchmarkNativeSort/fewunique/25-12              2000000               780 ns/op
-BenchmarkNativeSort/fewunique/50-12              1000000              1425 ns/op
-BenchmarkNativeSort/fewunique/100-12             1000000              2702 ns/op
-BenchmarkNativeSort/fewunique/200-12              500000              4966 ns/op
-BenchmarkNativeSort/fewunique/300-12              200000              6810 ns/op
-BenchmarkNativeSort/fewunique/600-12              100000             14678 ns/op
-BenchmarkNativeSort/fewunique/1000-12              50000             25707 ns/op
-BenchmarkNativeSort/fewunique/2000-12              30000             60534 ns/op
-BenchmarkNativeSort/fewunique/5000-12              10000            157174 ns/op
-BenchmarkQuickSort/random/10-12                  3000000               469 ns/op
-BenchmarkQuickSort/random/25-12                  1000000              1044 ns/op
-BenchmarkQuickSort/random/50-12                  1000000              1922 ns/op
-BenchmarkQuickSort/random/100-12                  300000              3776 ns/op
-BenchmarkQuickSort/random/200-12                  200000             11733 ns/op
-BenchmarkQuickSort/random/300-12                  100000             19859 ns/op
-BenchmarkQuickSort/random/600-12                   30000             50257 ns/op
-BenchmarkQuickSort/random/1000-12                  20000             94139 ns/op
-BenchmarkQuickSort/random/2000-12                  10000            214927 ns/op
-BenchmarkQuickSort/random/5000-12                   3000            578480 ns/op
-BenchmarkQuickSort/nearlysorted/10-12            3000000               405 ns/op
-BenchmarkQuickSort/nearlysorted/25-12            2000000               838 ns/op
-BenchmarkQuickSort/nearlysorted/50-12            1000000              1732 ns/op
-BenchmarkQuickSort/nearlysorted/100-12            500000              3492 ns/op
-BenchmarkQuickSort/nearlysorted/200-12            200000              9644 ns/op
-BenchmarkQuickSort/nearlysorted/300-12            100000             18121 ns/op
-BenchmarkQuickSort/nearlysorted/600-12             30000             48522 ns/op
-BenchmarkQuickSort/nearlysorted/1000-12            20000             86462 ns/op
-BenchmarkQuickSort/nearlysorted/2000-12            10000            189377 ns/op
-BenchmarkQuickSort/nearlysorted/5000-12             3000            533530 ns/op
-BenchmarkQuickSort/reversed/10-12                3000000               547 ns/op
-BenchmarkQuickSort/reversed/25-12                2000000               878 ns/op
-BenchmarkQuickSort/reversed/50-12                1000000              1381 ns/op
-BenchmarkQuickSort/reversed/100-12                500000              2727 ns/op
-BenchmarkQuickSort/reversed/200-12                200000              5910 ns/op
-BenchmarkQuickSort/reversed/300-12                200000              8236 ns/op
-BenchmarkQuickSort/reversed/600-12                100000             17815 ns/op
-BenchmarkQuickSort/reversed/1000-12                50000             30212 ns/op
-BenchmarkQuickSort/reversed/2000-12                20000             65791 ns/op
-BenchmarkQuickSort/reversed/5000-12                10000            184812 ns/op
-BenchmarkQuickSort/fewunique/10-12               3000000               499 ns/op
-BenchmarkQuickSort/fewunique/25-12               2000000               860 ns/op
-BenchmarkQuickSort/fewunique/50-12               1000000              1933 ns/op
-BenchmarkQuickSort/fewunique/100-12               300000              4239 ns/op
-BenchmarkQuickSort/fewunique/200-12               200000             10394 ns/op
-BenchmarkQuickSort/fewunique/300-12               100000             17419 ns/op
-BenchmarkQuickSort/fewunique/600-12                30000             38685 ns/op
-BenchmarkQuickSort/fewunique/1000-12               20000             71175 ns/op
-BenchmarkQuickSort/fewunique/2000-12               10000            149275 ns/op
-BenchmarkQuickSort/fewunique/5000-12                5000            403116 ns/op
-BenchmarkSelectionSort/random/10-12              2000000               587 ns/op
-BenchmarkSelectionSort/random/25-12              1000000              2111 ns/op
-BenchmarkSelectionSort/random/50-12               200000              7604 ns/op
-BenchmarkSelectionSort/random/100-12               50000             27833 ns/op
-BenchmarkSelectionSort/random/200-12               10000            100505 ns/op
-BenchmarkSelectionSort/random/300-12               10000            219474 ns/op
-BenchmarkSelectionSort/random/600-12                2000            852701 ns/op
-BenchmarkSelectionSort/random/1000-12               1000           2304717 ns/op
-BenchmarkSelectionSort/random/2000-12                200           9114634 ns/op
-BenchmarkSelectionSort/random/5000-12                 20          56430175 ns/op
-BenchmarkSelectionSort/nearlysorted/10-12        2000000               621 ns/op
-BenchmarkSelectionSort/nearlysorted/25-12        1000000              2222 ns/op
-BenchmarkSelectionSort/nearlysorted/50-12         200000              7180 ns/op
-BenchmarkSelectionSort/nearlysorted/100-12         50000             26706 ns/op
-BenchmarkSelectionSort/nearlysorted/200-12         10000            100971 ns/op
-BenchmarkSelectionSort/nearlysorted/300-12         10000            217330 ns/op
-BenchmarkSelectionSort/nearlysorted/600-12          2000            836343 ns/op
-BenchmarkSelectionSort/nearlysorted/1000-12         1000           2302844 ns/op
-BenchmarkSelectionSort/nearlysorted/2000-12          200           9117199 ns/op
-BenchmarkSelectionSort/nearlysorted/5000-12           20          56556885 ns/op
-BenchmarkSelectionSort/reversed/10-12            2000000               730 ns/op
-BenchmarkSelectionSort/reversed/25-12             500000              2172 ns/op
-BenchmarkSelectionSort/reversed/50-12             200000              7672 ns/op
-BenchmarkSelectionSort/reversed/100-12            100000             23462 ns/op
-BenchmarkSelectionSort/reversed/200-12             20000             98254 ns/op
-BenchmarkSelectionSort/reversed/300-12             10000            208292 ns/op
-BenchmarkSelectionSort/reversed/600-12              2000            819906 ns/op
-BenchmarkSelectionSort/reversed/1000-12             1000           2262892 ns/op
-BenchmarkSelectionSort/reversed/2000-12              200           9010067 ns/op
-BenchmarkSelectionSort/reversed/5000-12               20          56151195 ns/op
-BenchmarkSelectionSort/fewunique/10-12           2000000               580 ns/op
-BenchmarkSelectionSort/fewunique/25-12           1000000              2173 ns/op
-BenchmarkSelectionSort/fewunique/50-12            200000              7396 ns/op
-BenchmarkSelectionSort/fewunique/100-12            50000             26385 ns/op
-BenchmarkSelectionSort/fewunique/200-12            20000             96615 ns/op
-BenchmarkSelectionSort/fewunique/300-12            10000            212716 ns/op
-BenchmarkSelectionSort/fewunique/600-12             2000            828488 ns/op
-BenchmarkSelectionSort/fewunique/1000-12            1000           2268949 ns/op
-BenchmarkSelectionSort/fewunique/2000-12             200           8994439 ns/op
-BenchmarkSelectionSort/fewunique/5000-12              20          56400060 ns/op
-BenchmarkShellSort/random/10-12                  3000000               538 ns/op
-BenchmarkShellSort/random/25-12                  1000000              1294 ns/op
-BenchmarkShellSort/random/50-12                   500000              3033 ns/op
-BenchmarkShellSort/random/100-12                  200000              7600 ns/op
-BenchmarkShellSort/random/200-12                  100000             24155 ns/op
-BenchmarkShellSort/random/300-12                   50000             34732 ns/op
-BenchmarkShellSort/random/600-12                   20000             84596 ns/op
-BenchmarkShellSort/random/1000-12                  10000            151735 ns/op
-BenchmarkShellSort/random/2000-12                   5000            371222 ns/op
-BenchmarkShellSort/random/5000-12                   2000           1102749 ns/op
-BenchmarkShellSort/nearlysorted/10-12            3000000               480 ns/op
-BenchmarkShellSort/nearlysorted/25-12            2000000               999 ns/op
-BenchmarkShellSort/nearlysorted/50-12             500000              2580 ns/op
-BenchmarkShellSort/nearlysorted/100-12            300000              6373 ns/op
-BenchmarkShellSort/nearlysorted/200-12            100000             16416 ns/op
-BenchmarkShellSort/nearlysorted/300-12             50000             29462 ns/op
-BenchmarkShellSort/nearlysorted/600-12             20000             68368 ns/op
-BenchmarkShellSort/nearlysorted/1000-12            10000            130586 ns/op
-BenchmarkShellSort/nearlysorted/2000-12             5000            303023 ns/op
-BenchmarkShellSort/nearlysorted/5000-12             2000            939944 ns/op
-BenchmarkShellSort/reversed/10-12                2000000               703 ns/op
-BenchmarkShellSort/reversed/25-12                1000000              1253 ns/op
-BenchmarkShellSort/reversed/50-12                 500000              2762 ns/op
-BenchmarkShellSort/reversed/100-12                300000              5716 ns/op
-BenchmarkShellSort/reversed/200-12                100000             13647 ns/op
-BenchmarkShellSort/reversed/300-12                100000             22099 ns/op
-BenchmarkShellSort/reversed/600-12                 30000             49397 ns/op
-BenchmarkShellSort/reversed/1000-12                20000             87561 ns/op
-BenchmarkShellSort/reversed/2000-12                10000            189891 ns/op
-BenchmarkShellSort/reversed/5000-12                 3000            568537 ns/op
-BenchmarkShellSort/fewunique/10-12               3000000               489 ns/op
-BenchmarkShellSort/fewunique/25-12               1000000              1189 ns/op
-BenchmarkShellSort/fewunique/50-12                500000              2693 ns/op
-BenchmarkShellSort/fewunique/100-12               200000              6040 ns/op
-BenchmarkShellSort/fewunique/200-12               100000             16905 ns/op
-BenchmarkShellSort/fewunique/300-12                50000             24623 ns/op
-BenchmarkShellSort/fewunique/600-12                20000             56229 ns/op
-BenchmarkShellSort/fewunique/1000-12               20000            100739 ns/op
-BenchmarkShellSort/fewunique/2000-12               10000            230638 ns/op
-BenchmarkShellSort/fewunique/5000-12                2000            639915 ns/op
-```
+## Only O(n log<sub>2</sub> n) with random initial state
+
+![All algorithms](https://raw.githubusercontent.com/DanielRamosAcosta/sorting-algorithms-go/master/graphs/Random-ologn.png)
+
+## O(n<sup>2</sup>)
+
+### Insertion Sort
+
+![Insertion sort](https://raw.githubusercontent.com/DanielRamosAcosta/sorting-algorithms-go/master/graphs/Insertion%20Sort.png)
+
+| Algorithm      | Initial State | Slice Size | Nanoseconds per loop | 
+|----------------|---------------|------------|----------------------| 
+| Insertion Sort | Random        | 10         | 414                  | 
+| Insertion Sort | Random        | 25         | 1434                 | 
+| Insertion Sort | Random        | 50         | 4226                 | 
+| Insertion Sort | Random        | 100        | 15140                | 
+| Insertion Sort | Random        | 200        | 53617                | 
+| Insertion Sort | Random        | 300        | 121928               | 
+| Insertion Sort | Random        | 600        | 515623               | 
+| Insertion Sort | Random        | 1000       | 1344155              | 
+| Insertion Sort | Random        | 2000       | 5490228              | 
+| Insertion Sort | Random        | 5000       | 32699878             | 
+| Insertion Sort | Nearly Sorted | 10         | 315                  | 
+| Insertion Sort | Nearly Sorted | 25         | 601                  | 
+| Insertion Sort | Nearly Sorted | 50         | 1368                 | 
+| Insertion Sort | Nearly Sorted | 100        | 4017                 | 
+| Insertion Sort | Nearly Sorted | 200        | 15369                | 
+| Insertion Sort | Nearly Sorted | 300        | 32761                | 
+| Insertion Sort | Nearly Sorted | 600        | 120018               | 
+| Insertion Sort | Nearly Sorted | 1000       | 337086               | 
+| Insertion Sort | Nearly Sorted | 2000       | 1291112              | 
+| Insertion Sort | Nearly Sorted | 5000       | 7928650              | 
+| Insertion Sort | Reversed      | 10         | 695                  | 
+| Insertion Sort | Reversed      | 25         | 2409                 | 
+| Insertion Sort | Reversed      | 50         | 7426                 | 
+| Insertion Sort | Reversed      | 100        | 28293                | 
+| Insertion Sort | Reversed      | 200        | 112533               | 
+| Insertion Sort | Reversed      | 300        | 241489               | 
+| Insertion Sort | Reversed      | 600        | 966989               | 
+| Insertion Sort | Reversed      | 1000       | 2641561              | 
+| Insertion Sort | Reversed      | 2000       | 10626482             | 
+| Insertion Sort | Reversed      | 5000       | 65772705             | 
+| Insertion Sort | Few Unique    | 10         | 374                  | 
+| Insertion Sort | Few Unique    | 25         | 1339                 | 
+| Insertion Sort | Few Unique    | 50         | 4176                 | 
+| Insertion Sort | Few Unique    | 100        | 14872                | 
+| Insertion Sort | Few Unique    | 200        | 50081                | 
+| Insertion Sort | Few Unique    | 300        | 113551               | 
+| Insertion Sort | Few Unique    | 600        | 479824               | 
+| Insertion Sort | Few Unique    | 1000       | 1235834              | 
+| Insertion Sort | Few Unique    | 2000       | 5088549              | 
+| Insertion Sort | Few Unique    | 5000       | 29883352             | 
+
+### Selection Sort
+
+![Selection sort](https://raw.githubusercontent.com/DanielRamosAcosta/sorting-algorithms-go/master/graphs/Selection%20Sort.png)
+
+| Algorithm      | Initial State | Slice Size | Nanoseconds per loop | 
+|----------------|---------------|------------|----------------------| 
+| Selection Sort | Random        | 10         | 587                  | 
+| Selection Sort | Random        | 25         | 2111                 | 
+| Selection Sort | Random        | 50         | 7604                 | 
+| Selection Sort | Random        | 100        | 27833                | 
+| Selection Sort | Random        | 200        | 100505               | 
+| Selection Sort | Random        | 300        | 219474               | 
+| Selection Sort | Random        | 600        | 852701               | 
+| Selection Sort | Random        | 1000       | 2304717              | 
+| Selection Sort | Random        | 2000       | 9114634              | 
+| Selection Sort | Random        | 5000       | 56430175             | 
+| Selection Sort | Nearly Sorted | 10         | 621                  | 
+| Selection Sort | Nearly Sorted | 25         | 2222                 | 
+| Selection Sort | Nearly Sorted | 50         | 7180                 | 
+| Selection Sort | Nearly Sorted | 100        | 26706                | 
+| Selection Sort | Nearly Sorted | 200        | 100971               | 
+| Selection Sort | Nearly Sorted | 300        | 217330               | 
+| Selection Sort | Nearly Sorted | 600        | 836343               | 
+| Selection Sort | Nearly Sorted | 1000       | 2302844              | 
+| Selection Sort | Nearly Sorted | 2000       | 9117199              | 
+| Selection Sort | Nearly Sorted | 5000       | 56556885             | 
+| Selection Sort | Reversed      | 10         | 730                  | 
+| Selection Sort | Reversed      | 25         | 2172                 | 
+| Selection Sort | Reversed      | 50         | 7672                 | 
+| Selection Sort | Reversed      | 100        | 23462                | 
+| Selection Sort | Reversed      | 200        | 98254                | 
+| Selection Sort | Reversed      | 300        | 208292               | 
+| Selection Sort | Reversed      | 600        | 819906               | 
+| Selection Sort | Reversed      | 1000       | 2262892              | 
+| Selection Sort | Reversed      | 2000       | 9010067              | 
+| Selection Sort | Reversed      | 5000       | 56151195             | 
+| Selection Sort | Few Unique    | 10         | 580                  | 
+| Selection Sort | Few Unique    | 25         | 2173                 | 
+| Selection Sort | Few Unique    | 50         | 7396                 | 
+| Selection Sort | Few Unique    | 100        | 26385                | 
+| Selection Sort | Few Unique    | 200        | 96615                | 
+| Selection Sort | Few Unique    | 300        | 212716               | 
+| Selection Sort | Few Unique    | 600        | 828488               | 
+| Selection Sort | Few Unique    | 1000       | 2268949              | 
+| Selection Sort | Few Unique    | 2000       | 8994439              | 
+| Selection Sort | Few Unique    | 5000       | 56400060             | 
+
+### Bubble Sort
+
+![Bubble Sort](https://raw.githubusercontent.com/DanielRamosAcosta/sorting-algorithms-go/master/graphs/Bubble%20Sort.png)
+
+| Algorithm   | Initial State | Slice Size | Nanoseconds per loop | 
+|-------------|---------------|------------|----------------------| 
+| Bubble Sort | Random        | 10         | 513                  | 
+| Bubble Sort | Random        | 25         | 1756                 | 
+| Bubble Sort | Random        | 50         | 6794                 | 
+| Bubble Sort | Random        | 100        | 27557                | 
+| Bubble Sort | Random        | 200        | 107659               | 
+| Bubble Sort | Random        | 300        | 230428               | 
+| Bubble Sort | Random        | 600        | 899676               | 
+| Bubble Sort | Random        | 1000       | 2508250              | 
+| Bubble Sort | Random        | 2000       | 10675388             | 
+| Bubble Sort | Random        | 5000       | 75255770             | 
+| Bubble Sort | Nearly Sorted | 10         | 296                  | 
+| Bubble Sort | Nearly Sorted | 25         | 624                  | 
+| Bubble Sort | Nearly Sorted | 50         | 1646                 | 
+| Bubble Sort | Nearly Sorted | 100        | 5970                 | 
+| Bubble Sort | Nearly Sorted | 200        | 27500                | 
+| Bubble Sort | Nearly Sorted | 300        | 61543                | 
+| Bubble Sort | Nearly Sorted | 600        | 245009               | 
+| Bubble Sort | Nearly Sorted | 1000       | 675410               | 
+| Bubble Sort | Nearly Sorted | 2000       | 2862602              | 
+| Bubble Sort | Nearly Sorted | 5000       | 18976285             | 
+| Bubble Sort | Reversed      | 10         | 760                  | 
+| Bubble Sort | Reversed      | 25         | 2488                 | 
+| Bubble Sort | Reversed      | 50         | 7750                 | 
+| Bubble Sort | Reversed      | 100        | 30321                | 
+| Bubble Sort | Reversed      | 200        | 121985               | 
+| Bubble Sort | Reversed      | 300        | 265382               | 
+| Bubble Sort | Reversed      | 600        | 1034623              | 
+| Bubble Sort | Reversed      | 1000       | 2888977              | 
+| Bubble Sort | Reversed      | 2000       | 11551194             | 
+| Bubble Sort | Reversed      | 5000       | 71512265             | 
+| Bubble Sort | Few Unique    | 10         | 510                  | 
+| Bubble Sort | Few Unique    | 25         | 1713                 | 
+| Bubble Sort | Few Unique    | 50         | 6423                 | 
+| Bubble Sort | Few Unique    | 100        | 25366                | 
+| Bubble Sort | Few Unique    | 200        | 100990               | 
+| Bubble Sort | Few Unique    | 300        | 225424               | 
+| Bubble Sort | Few Unique    | 600        | 870758               | 
+| Bubble Sort | Few Unique    | 1000       | 2419251              | 
+| Bubble Sort | Few Unique    | 2000       | 10315759             | 
+| Bubble Sort | Few Unique    | 5000       | 73258045             | 
+
+### Cocktail Sort
+
+![Cocktail Sort](https://raw.githubusercontent.com/DanielRamosAcosta/sorting-algorithms-go/master/graphs/Cocktail%20Sort.png)
+
+| Algorithm     | Initial State | Slice Size | Nanoseconds per loop | 
+|---------------|---------------|------------|----------------------| 
+| Cocktail Sort | Random        | 10         | 500                  | 
+| Cocktail Sort | Random        | 25         | 1714                 | 
+| Cocktail Sort | Random        | 50         | 6422                 | 
+| Cocktail Sort | Random        | 100        | 25561                | 
+| Cocktail Sort | Random        | 200        | 103241               | 
+| Cocktail Sort | Random        | 300        | 228395               | 
+| Cocktail Sort | Random        | 600        | 914376               | 
+| Cocktail Sort | Random        | 1000       | 2470481              | 
+| Cocktail Sort | Random        | 2000       | 10160215             | 
+| Cocktail Sort | Random        | 5000       | 67350390             | 
+| Cocktail Sort | Nearly Sorted | 10         | 460                  | 
+| Cocktail Sort | Nearly Sorted | 25         | 1469                 | 
+| Cocktail Sort | Nearly Sorted | 50         | 4829                 | 
+| Cocktail Sort | Nearly Sorted | 100        | 18602                | 
+| Cocktail Sort | Nearly Sorted | 200        | 72984                | 
+| Cocktail Sort | Nearly Sorted | 300        | 164028               | 
+| Cocktail Sort | Nearly Sorted | 600        | 666848               | 
+| Cocktail Sort | Nearly Sorted | 1000       | 1857221              | 
+| Cocktail Sort | Nearly Sorted | 2000       | 7444163              | 
+| Cocktail Sort | Nearly Sorted | 5000       | 47202763             | 
+| Cocktail Sort | Reversed      | 10         | 700                  | 
+| Cocktail Sort | Reversed      | 25         | 2702                 | 
+| Cocktail Sort | Reversed      | 50         | 7601                 | 
+| Cocktail Sort | Reversed      | 100        | 30543                | 
+| Cocktail Sort | Reversed      | 200        | 118209               | 
+| Cocktail Sort | Reversed      | 300        | 267192               | 
+| Cocktail Sort | Reversed      | 600        | 1062478              | 
+| Cocktail Sort | Reversed      | 1000       | 2927758              | 
+| Cocktail Sort | Reversed      | 2000       | 11730141             | 
+| Cocktail Sort | Reversed      | 5000       | 73001020             | 
+| Cocktail Sort | Few Unique    | 10         | 467                  | 
+| Cocktail Sort | Few Unique    | 25         | 1632                 | 
+| Cocktail Sort | Few Unique    | 50         | 6254                 | 
+| Cocktail Sort | Few Unique    | 100        | 24646                | 
+| Cocktail Sort | Few Unique    | 200        | 95415                | 
+| Cocktail Sort | Few Unique    | 300        | 218978               | 
+| Cocktail Sort | Few Unique    | 600        | 890942               | 
+| Cocktail Sort | Few Unique    | 1000       | 2431807              | 
+| Cocktail Sort | Few Unique    | 2000       | 9825487              | 
+| Cocktail Sort | Few Unique    | 5000       | 67251515             | 
+
+## O(n log<sub>2</sub> n)
+
+### Heap Sort
+
+![Heap Sort](https://raw.githubusercontent.com/DanielRamosAcosta/sorting-algorithms-go/master/graphs/Heap%20Sort.png)
+
+| Algorithm | Initial State | Slice Size | Nanoseconds per loop | 
+|-----------|---------------|------------|----------------------| 
+| Heap Sort | Random        | 10         | 588                  | 
+| Heap Sort | Random        | 25         | 1210                 | 
+| Heap Sort | Random        | 50         | 2634                 | 
+| Heap Sort | Random        | 100        | 5697                 | 
+| Heap Sort | Random        | 200        | 14754                | 
+| Heap Sort | Random        | 300        | 26106                | 
+| Heap Sort | Random        | 600        | 65894                | 
+| Heap Sort | Random        | 1000       | 123484               | 
+| Heap Sort | Random        | 2000       | 264020               | 
+| Heap Sort | Random        | 5000       | 741512               | 
+| Heap Sort | Nearly Sorted | 10         | 577                  | 
+| Heap Sort | Nearly Sorted | 25         | 1254                 | 
+| Heap Sort | Nearly Sorted | 50         | 2544                 | 
+| Heap Sort | Nearly Sorted | 100        | 6370                 | 
+| Heap Sort | Nearly Sorted | 200        | 15575                | 
+| Heap Sort | Nearly Sorted | 300        | 27502                | 
+| Heap Sort | Nearly Sorted | 600        | 67111                | 
+| Heap Sort | Nearly Sorted | 1000       | 117014               | 
+| Heap Sort | Nearly Sorted | 2000       | 262759               | 
+| Heap Sort | Nearly Sorted | 5000       | 736137               | 
+| Heap Sort | Reversed      | 10         | 595                  | 
+| Heap Sort | Reversed      | 25         | 1123                 | 
+| Heap Sort | Reversed      | 50         | 2295                 | 
+| Heap Sort | Reversed      | 100        | 5398                 | 
+| Heap Sort | Reversed      | 200        | 13480                | 
+| Heap Sort | Reversed      | 300        | 22799                | 
+| Heap Sort | Reversed      | 600        | 56780                | 
+| Heap Sort | Reversed      | 1000       | 101624               | 
+| Heap Sort | Reversed      | 2000       | 222375               | 
+| Heap Sort | Reversed      | 5000       | 609433               | 
+| Heap Sort | Few Unique    | 10         | 536                  | 
+| Heap Sort | Few Unique    | 25         | 1139                 | 
+| Heap Sort | Few Unique    | 50         | 2419                 | 
+| Heap Sort | Few Unique    | 100        | 5578                 | 
+| Heap Sort | Few Unique    | 200        | 14216                | 
+| Heap Sort | Few Unique    | 300        | 25485                | 
+| Heap Sort | Few Unique    | 600        | 60156                | 
+| Heap Sort | Few Unique    | 1000       | 109901               | 
+| Heap Sort | Few Unique    | 2000       | 228306               | 
+| Heap Sort | Few Unique    | 5000       | 612497               | 
+
+### Shell Sort
+
+![Shell Sort](https://raw.githubusercontent.com/DanielRamosAcosta/sorting-algorithms-go/master/graphs/Shell%20Sort.png)
+
+| Algorithm  | Initial State | Slice Size | Nanoseconds per loop | 
+|------------|---------------|------------|----------------------| 
+| Shell Sort | Random        | 10         | 538                  | 
+| Shell Sort | Random        | 25         | 1294                 | 
+| Shell Sort | Random        | 50         | 3033                 | 
+| Shell Sort | Random        | 100        | 7600                 | 
+| Shell Sort | Random        | 200        | 24155                | 
+| Shell Sort | Random        | 300        | 34732                | 
+| Shell Sort | Random        | 600        | 84596                | 
+| Shell Sort | Random        | 1000       | 151735               | 
+| Shell Sort | Random        | 2000       | 371222               | 
+| Shell Sort | Random        | 5000       | 1102749              | 
+| Shell Sort | Nearly Sorted | 10         | 480                  | 
+| Shell Sort | Nearly Sorted | 25         | 999                  | 
+| Shell Sort | Nearly Sorted | 50         | 2580                 | 
+| Shell Sort | Nearly Sorted | 100        | 6373                 | 
+| Shell Sort | Nearly Sorted | 200        | 16416                | 
+| Shell Sort | Nearly Sorted | 300        | 29462                | 
+| Shell Sort | Nearly Sorted | 600        | 68368                | 
+| Shell Sort | Nearly Sorted | 1000       | 130586               | 
+| Shell Sort | Nearly Sorted | 2000       | 303023               | 
+| Shell Sort | Nearly Sorted | 5000       | 939944               | 
+| Shell Sort | Reversed      | 10         | 703                  | 
+| Shell Sort | Reversed      | 25         | 1253                 | 
+| Shell Sort | Reversed      | 50         | 2762                 | 
+| Shell Sort | Reversed      | 100        | 5716                 | 
+| Shell Sort | Reversed      | 200        | 13647                | 
+| Shell Sort | Reversed      | 300        | 22099                | 
+| Shell Sort | Reversed      | 600        | 49397                | 
+| Shell Sort | Reversed      | 1000       | 87561                | 
+| Shell Sort | Reversed      | 2000       | 189891               | 
+| Shell Sort | Reversed      | 5000       | 568537               | 
+| Shell Sort | Few Unique    | 10         | 489                  | 
+| Shell Sort | Few Unique    | 25         | 1189                 | 
+| Shell Sort | Few Unique    | 50         | 2693                 | 
+| Shell Sort | Few Unique    | 100        | 6040                 | 
+| Shell Sort | Few Unique    | 200        | 16905                | 
+| Shell Sort | Few Unique    | 300        | 24623                | 
+| Shell Sort | Few Unique    | 600        | 56229                | 
+| Shell Sort | Few Unique    | 1000       | 100739               | 
+| Shell Sort | Few Unique    | 2000       | 230638               | 
+| Shell Sort | Few Unique    | 5000       | 639915               | 
+
+### Quick Sort
+
+![Quick Sort](https://raw.githubusercontent.com/DanielRamosAcosta/sorting-algorithms-go/master/graphs/Quick%20Sort.png)
+
+| Algorithm  | Initial State | Slice Size | Nanoseconds per loop | 
+|------------|---------------|------------|----------------------| 
+| Quick Sort | Random        | 10         | 469                  | 
+| Quick Sort | Random        | 25         | 1044                 | 
+| Quick Sort | Random        | 50         | 1922                 | 
+| Quick Sort | Random        | 100        | 3776                 | 
+| Quick Sort | Random        | 200        | 11733                | 
+| Quick Sort | Random        | 300        | 19859                | 
+| Quick Sort | Random        | 600        | 50257                | 
+| Quick Sort | Random        | 1000       | 94139                | 
+| Quick Sort | Random        | 2000       | 214927               | 
+| Quick Sort | Random        | 5000       | 578480               | 
+| Quick Sort | Nearly Sorted | 10         | 405                  | 
+| Quick Sort | Nearly Sorted | 25         | 838                  | 
+| Quick Sort | Nearly Sorted | 50         | 1732                 | 
+| Quick Sort | Nearly Sorted | 100        | 3492                 | 
+| Quick Sort | Nearly Sorted | 200        | 9644                 | 
+| Quick Sort | Nearly Sorted | 300        | 18121                | 
+| Quick Sort | Nearly Sorted | 600        | 48522                | 
+| Quick Sort | Nearly Sorted | 1000       | 86462                | 
+| Quick Sort | Nearly Sorted | 2000       | 189377               | 
+| Quick Sort | Nearly Sorted | 5000       | 533530               | 
+| Quick Sort | Reversed      | 10         | 547                  | 
+| Quick Sort | Reversed      | 25         | 878                  | 
+| Quick Sort | Reversed      | 50         | 1381                 | 
+| Quick Sort | Reversed      | 100        | 2727                 | 
+| Quick Sort | Reversed      | 200        | 5910                 | 
+| Quick Sort | Reversed      | 300        | 8236                 | 
+| Quick Sort | Reversed      | 600        | 17815                | 
+| Quick Sort | Reversed      | 1000       | 30212                | 
+| Quick Sort | Reversed      | 2000       | 65791                | 
+| Quick Sort | Reversed      | 5000       | 184812               | 
+| Quick Sort | Few Unique    | 10         | 499                  | 
+| Quick Sort | Few Unique    | 25         | 860                  | 
+| Quick Sort | Few Unique    | 50         | 1933                 | 
+| Quick Sort | Few Unique    | 100        | 4239                 | 
+| Quick Sort | Few Unique    | 200        | 10394                | 
+| Quick Sort | Few Unique    | 300        | 17419                | 
+| Quick Sort | Few Unique    | 600        | 38685                | 
+| Quick Sort | Few Unique    | 1000       | 71175                | 
+| Quick Sort | Few Unique    | 2000       | 149275               | 
+| Quick Sort | Few Unique    | 5000       | 403116               | 
+
+### Native Sort
+
+![Native Sort](https://raw.githubusercontent.com/DanielRamosAcosta/sorting-algorithms-go/master/graphs/Native%20Sort.png)
+
+| Algorithm   | Initial State | Slice Size | Nanoseconds per loop | 
+|-------------|---------------|------------|----------------------| 
+| Native Sort | Random        | 10         | 435                  | 
+| Native Sort | Random        | 25         | 864                  | 
+| Native Sort | Random        | 50         | 1641                 | 
+| Native Sort | Random        | 100        | 3459                 | 
+| Native Sort | Random        | 200        | 7354                 | 
+| Native Sort | Random        | 300        | 12109                | 
+| Native Sort | Random        | 600        | 35675                | 
+| Native Sort | Random        | 1000       | 76166                | 
+| Native Sort | Random        | 2000       | 174661               | 
+| Native Sort | Random        | 5000       | 481968               | 
+| Native Sort | Nearly Sorted | 10         | 323                  | 
+| Native Sort | Nearly Sorted | 25         | 744                  | 
+| Native Sort | Nearly Sorted | 50         | 1588                 | 
+| Native Sort | Nearly Sorted | 100        | 3217                 | 
+| Native Sort | Nearly Sorted | 200        | 6726                 | 
+| Native Sort | Nearly Sorted | 300        | 11631                | 
+| Native Sort | Nearly Sorted | 600        | 31936                | 
+| Native Sort | Nearly Sorted | 1000       | 66798                | 
+| Native Sort | Nearly Sorted | 2000       | 159067               | 
+| Native Sort | Nearly Sorted | 5000       | 449212               | 
+| Native Sort | Reversed      | 10         | 551                  | 
+| Native Sort | Reversed      | 25         | 700                  | 
+| Native Sort | Reversed      | 50         | 1308                 | 
+| Native Sort | Reversed      | 100        | 2631                 | 
+| Native Sort | Reversed      | 200        | 5202                 | 
+| Native Sort | Reversed      | 300        | 8643                 | 
+| Native Sort | Reversed      | 600        | 18388                | 
+| Native Sort | Reversed      | 1000       | 32451                | 
+| Native Sort | Reversed      | 2000       | 66683                | 
+| Native Sort | Reversed      | 5000       | 191188               | 
+| Native Sort | Few Unique    | 10         | 422                  | 
+| Native Sort | Few Unique    | 25         | 780                  | 
+| Native Sort | Few Unique    | 50         | 1425                 | 
+| Native Sort | Few Unique    | 100        | 2702                 | 
+| Native Sort | Few Unique    | 200        | 4966                 | 
+| Native Sort | Few Unique    | 300        | 6810                 | 
+| Native Sort | Few Unique    | 600        | 14678                | 
+| Native Sort | Few Unique    | 1000       | 25707                | 
+| Native Sort | Few Unique    | 2000       | 60534                | 
+| Native Sort | Few Unique    | 5000       | 157174               | 

@@ -5,10 +5,10 @@
 set terminal pngcairo nocrop enhanced font "verdana,8" size 600,600
 set output sprintf("graficos/%s.png", algrtm)
 set datafile separator ','
-set style line 1 linecolor rgb '#0060AD' linetype 1 linewidth 2  # blue
-set style line 2 linecolor rgb '#DD181F' linetype 1 linewidth 2  # red
-set style line 3 linecolor rgb '#70AD47' linetype 1 linewidth 2  # green
-set style line 4 linecolor rgb '#ED7D31' linetype 1 linewidth 2  # orange
+set style line 1 linecolor rgb '#5B9BD5' linetype 1 linewidth 2
+set style line 2 linecolor rgb '#ED7D31' linetype 1 linewidth 2
+set style line 3 linecolor rgb '#A5A5A5' linetype 1 linewidth 2
+set style line 4 linecolor rgb '#FFC000' linetype 1 linewidth 2
 
 set title algrtm
 

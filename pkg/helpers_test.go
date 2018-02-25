@@ -20,6 +20,7 @@ func (a SortType) Swap(i, j int)         { a[i], a[j] = a[j], a[i] }
 func (a SortType) Less(i, j int) bool    { return a[i] < a[j] }
 func (a SortType) Greater(i, j int) bool { return a[i] > a[j] }
 func (a SortType) GetKey(i int) uint     { return a[i] }
+func (a SortType) SetKey(i int, n uint)  { a[i] = n }
 
 func New(length uint) SortType {
 	s := make(SortType, length)
